@@ -78,6 +78,14 @@ app.get("/books/:id", (req, res) => {
 
 
 app.use('./auth', authRoutes)
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  res.status(status).json({ message: message });
+});
+
   
 mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mongodb.net/messages')
 .then(result => {
