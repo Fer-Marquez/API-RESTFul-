@@ -1,7 +1,13 @@
-import express from "express";
-import fs from "fs";
+const express = require('express');
+const fs = require("fs");
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const authRoutes = require('./routes/auth');
 
 const app = express();
+
+app.use(bodyParser.json());
 
 const readData = () => {
   try {
@@ -36,6 +42,48 @@ app.get("/books/:id", (req, res) => {
     res.json(book);
   });
 
-app.listen(3000, () =>{
+  app.post("/books", (req, res) => {
+    const data = readData();
+    const body = req.body;
+    const newBook = {
+      id: data.books.length + 1,
+      ...body,
+    };
+    data.books.push(newBook);
+    writeData(data);
+    res.json(newBook);
+  });
+
+  app.put("/books/:id", (req, res) => {
+    const data = readData();
+    const body = req.body;
+    const id = parseInt(req.params.id);
+    const bookIndex = data.books.findIndex((book) => book.id === id);
+    data.books[bookIndex] = {
+      ...data.books[bookIndex],
+      ...body,
+    };
+    writeData(data);
+    res.json({ message: "Book updated successfully" });
+  });
+  
+  app.delete("/books/:id", (req, res) => {
+    const data = readData();
+    const id = parseInt(req.params.id);
+    const bookIndex = data.books.findIndex((book) => book.id === id);
+    data.books.splice(bookIndex, 1);
+    writeData(data);
+    res.json({ message: "Book deleted successfully" });
+  });
+
+
+app.use('./auth', authRoutes)
+  
+mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mongodb.net/messages')
+.then(result => {
+  app.listen(3000, () =>{
     console.log('Server listening on port 3000!')
-});
+    });
+  })
+  .catch(err => console.log(err));
+  
