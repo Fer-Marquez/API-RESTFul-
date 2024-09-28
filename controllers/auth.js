@@ -1,8 +1,8 @@
 const { validationResult } = require('express-validator');
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 
-const User = require('../models/user');
+const User = require('../models/users');
 
 exports.signup = (req, res, next) => {
   const errors = validationResult(req);
@@ -15,25 +15,26 @@ exports.signup = (req, res, next) => {
   const username = req.body.email;
   const last_name = req.body.last_name;
   const password = req.body.password;
-//   bcrypt
-//     .hash(password, 12)
-//     .then(hashedPw => {
-//       const user = new User({
-//         email: email,
-//         password: hashedPw,
-//         name: name
-//       });
-//       return user.save();
-//     })
-//     .then(result => {
-//       res.status(201).json({ message: 'User created!', userId: result._id });
-//     })
-//     .catch(err => {
-//       if (!err.statusCode) {
-//         err.statusCode = 500;
-//       }
-//       next(err);
-//     });
+  bcrypt
+    .hash(password, 12)
+    .then(hashedPw => {
+      const user = new User({
+        email: email,
+        password: hashedPw,
+        first_name: first_name,
+        last_name: last_name
+      });
+      return user.save();
+    })
+    .then(result => {
+      res.status(201).json({ message: 'User created!', userId: result._id });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 // };
 
 // exports.login = (req, res, next) => {
