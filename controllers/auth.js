@@ -57,15 +57,15 @@ exports.login = (req, res, next) => {
         error.statusCode = 401;
         throw error;
       }
-      // const token = jwt.sign(
-      //   { 
-      //     email: loadedUser.email,
-      //     userId: loadedUser._id.toString()
-      //   },
-      //   'somesupersecretsecret',
-      //   { expiresIn: '1h' }
-      // );
-      // res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+      const token = jwt.sign(
+        { 
+          email: loadedUser.email,
+          userId: loadedUser._id.toString()
+        },
+        'somesupersecretsecret',
+        { expiresIn: '1h' }
+      );
+      res.status(200).json({ token: token, userId: loadedUser._id.toString() });
     })
     .catch(err => {
       if (!err.statusCode) {
