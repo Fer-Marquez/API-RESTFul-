@@ -6,14 +6,13 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-// const express = require('express');
 const fs = require("fs");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/auth');
 
-// const app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
@@ -64,9 +63,9 @@ app.get("/api/user/:id", (req, res) => {
   app.put("/api/user/:id", (req, res) => {
     const data = readData();
     const id = parseInt(req.params.id);
-    const bookIndex = data.books.findIndex((book) => book.id === id);
-    data.books[bookIndex] = {
-      ...data.books[bookIndex],
+    const userIdIndex = data.userId.findIndex((user) => user.id === id);
+    data.userId[userIndex] = {
+      ...data.userId[userIdIndex],
       ...body,
     };
     writeData(data);
@@ -76,48 +75,24 @@ app.get("/api/user/:id", (req, res) => {
   app.delete("/api/user/:id", (req, res) => {
     const data = readData();
     const id = parseInt(req.params.id);
-    const bookIndex = data.books.findIndex((book) => book.id === id);
-    data.books.splice(bookIndex, 1);
+    const userIdIndex = data.userId.findIndex((user) => user.id === id);
+    data.userId.splice(UserIdIndex, 1);
     writeData(data);
     res.json({ message: "User deleted successfully" });
   });
 
 
 
-// // GET /feed/posts
-// router.get('/posts', isAuth, feedController.getPosts);
+// // GET /feed/users
+router.get('/api/users', isAuth, feedController.getUsers);
 
-// // POST /feed/post
-// router.post(
-//   '/post',
-//   isAuth,
-//   [
-//     body('title')
-//       .trim()
-//       .isLength({ min: 5 }),
-//     body('content')
-//       .trim()
-//       .isLength({ min: 5 })
-//   ],
-//   feedController.createPost
-// );
+// // POST /feed/
+router.post('/api/users', isAuth, feedController.createUsers);
 
-// router.get('/post/:postId', isAuth, feedController.getPost);
+router.get('/api/users/:userId', isAuth, feedController.getUsers);
 
-// router.put(
-//   '/post/:postId',
-//   isAuth,
-//   [
-//     body('title')
-//       .trim()
-//       .isLength({ min: 5 }),
-//     body('content')
-//       .trim()
-//       .isLength({ min: 5 })
-//   ],
-//   feedController.updatePost
-// );
+router.put('/api/users/:userId', isAuth, feedController.updateUsers);
 
-// router.delete('/post/:postId', isAuth, feedController.deletePost);
+router.delete('/api/users/:userId', isAuth, feedController.deleteUsers);
 
 module.exports = router;

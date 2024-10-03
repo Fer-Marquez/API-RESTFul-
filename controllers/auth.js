@@ -12,7 +12,7 @@ exports.signup = (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-  const username = req.body.email;
+  const email = req.body.email;
   const last_name = req.body.last_name;
   const password = req.body.password;
   bcrypt

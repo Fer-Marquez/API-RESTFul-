@@ -3,8 +3,10 @@ const path = require('path');
 
 const { validationResult } = require('express-validator');
 
-// const Post = require('../models/post');
 const User = require('../models/user');
+
+// const Post = require('../models/post');
+
 
 // exports.getPosts = (req, res, next) => {
 //   const currentPage = req.query.page || 1;
@@ -48,7 +50,7 @@ const User = require('../models/user');
 //     throw error;
 //   }
 //   const imageUrl =req.file.path.replace("\\" ,"/");
-  const title = req.body.title;
+  // const title = req.body.title;
   const content = req.body.content;
   let creator;
   const user = new userId({
