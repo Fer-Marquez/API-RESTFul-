@@ -8,7 +8,7 @@ const User = require('../models/user');
 // const Post = require('../models/post');
 
 
-exports.getUser = (req, res, next) => {
+exports.getPost = (req, res, next) => {
   // const currentPage = req.query.page || 1;
 //   const perPage = 2;
 //   let totalItems;
@@ -25,8 +25,8 @@ exports.getUser = (req, res, next) => {
         .status(200)
         .json({
           message: 'Fetched posts successfully.',
-          posts: posts,
-          totalItems: totalItems
+          posts: posts
+          // totalItems: totalItems
         });
     })
     .catch(err => {
