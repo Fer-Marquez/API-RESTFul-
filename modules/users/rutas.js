@@ -21,5 +21,27 @@ router.get("/api", (req, res) => {
     writeData(data);
     res.json(newUser);
   });
+  router.put("/api/user/:id", (req, res) => {
+    const data = readData();
+    const id = parseInt(req.params.id);
+    const userIdIndex = data.userId.findIndex((user) => user.id === id);
+    data.userId[userIndex] = {
+      ...data.userId[userIdIndex],
+      ...body,
+    };
+    writeData(data);
+    res.json({ message: "User updated successfully" });
+  });
+  
+  router.delete("/api/user/:id", (req, res) => {
+    const data = readData();
+    const id = parseInt(req.params.id);
+    const userIdIndex = data.userId.findIndex((user) => user.id === id);
+    data.userId.splice(UserIdIndex, 1);
+    writeData(data);
+    res.json({ message: "User deleted successfully" });
+  });
+
+
 
 module.exports = router;
