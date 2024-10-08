@@ -1,11 +1,13 @@
 const express = require('express');
+const config = require ('./config')
 const fs = require("fs");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const users = require('./modules/users/rutas')
 const authRoutes = require('./routes/auth');
 
 const app = express();
+app.set('port', config.app.port)
 
   app.use(bodyParser.json());
   
@@ -28,7 +30,8 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-
+//Rutas
+app.use('/api/users', users)
   
 mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mongodb.net/messages')
 .then(result => {
@@ -38,3 +41,4 @@ mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mon
   })
   .catch(err => console.log(err));
   
+module.exports = app;
