@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const users = require('./modules/users/rutas')
 const authRoutes = require('./routes/auth');
-
+const User = require('./controllers/auth');
+const feedController = require('./controllers/auth');
 const app = express();
 app.set('port', config.app.port)
 
@@ -32,7 +33,12 @@ app.use((error, req, res, next) => {
 
 //Rutas
 app.use('/api/users', users)
-  
+
+app.get('/api/users/:userId', users);
+app.post('/api/auth/signup', feedController, users);
+app.put('/api/auth/signup', feedController, users);
+app.delete('/api/auth/signup', feedController, users);
+   
 mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mongodb.net/messages')
 .then(result => {
   app.listen(3000, () =>{
