@@ -1,13 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-const { validationResult } = require('express-validator');
+// const { validationResult } = require('express-validator');
 
-const User = require('../models/user');
+// const User = require('../models/user');
 
-// const Post = require('../models/post');
+// // const Post = require('../models/post');
 
-
+exports.getPosts = (req, res, next) => {
+  res.status(200).json({ user: [{email: "User post"}]
+  });
+};
 exports.getPost = (req, res, next) => {
   // const currentPage = req.query.page || 1;
 //   const perPage = 2;
