@@ -14,10 +14,17 @@ const app = express();
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
   });
-  
+// routes
+  app.get('/', (req, res) => {
+    res.send('Bienvenido a mi API')
+  })
+
+//middleware
 app.use('/user', userRoutes);
 
 app.use('/user/create', userRoutes);
+app.use('/user/update', userRoutes);
+app.use('/user/delete', userRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -27,7 +34,7 @@ app.use((error, req, res, next) => {
 });
 
 
-   
+//mongo conection   
 mongoose.connect('mongodb+srv://fernandamarquez:elreyjesus1@cluster0.lrnkyrk.mongodb.net/messages')
 .then(result => {
   app.listen(3000, () =>{
