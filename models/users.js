@@ -26,7 +26,7 @@ last_name: {
   },
   update_at: {
     type: String,
-    required: true}
+    required: false}
   }, {
     timestamps: true
 });

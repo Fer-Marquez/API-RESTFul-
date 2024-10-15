@@ -13,26 +13,57 @@ router.post('/', async(req, res, next) => {
     console.log("User post")
     return res.status(200).send("Mensaje con exito")
 });
+// crear usuario
 router.post('/create', async(req, res) => { 
     const user = usersSchema(req.body);
-    user.save().then((data) => res.json(data)).catch((error) => res.json ({message: error }));
-
+    user.save()
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
     console.log("User created")
-    // return res.status(201).json({ post:{ id: new Date().toISOString(), content: content, email: "",
-    //     password: "",
-    //     first_name: "",
-    //     last_name: "",
-    //     crate_at: "",
-    //     update_at: ""}
-    // })
+    return res.status(201) 
+
 });
-router.put('/update', async(req, res, next) => {
-    console.log("Updated user")
-    return res.status(200).send("Actualizado")
+//buscar todos los usuarios
+router.get('/search', async(req, res) => { 
+    usersSchema
+    .find()
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("Users found")
+    return res.status(200) 
+
 });
-router.delete('/delete', async(req, res, next) => {
-    console.log("Correctly delete")
-    return res.status(200).send("Eliminado")
+//buscar todos los usuarios
+router.get('/search/:id', async(req, res) => { 
+    const { id } = req.params;
+    usersSchema
+    .findById(id)
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User found")
+    return res.status(200) 
+
+});
+//actualizar un usuario
+router.put('/update/:id', async(req, res) => { 
+    const { id } = req.params;
+    const { username, password, first_name, last_name } = req.body;
+    usersSchema
+    .updateOne({ _id: id }, { $set: {username, password, first_name, last_name} })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User Updated")
+    return res.status(200) 
 });
 
+//borrar un usuario
+router.delete('/delete/:id', async(req, res) => { 
+    const { id } = req.params;
+    usersSchema
+    .deleteOne({ _id: id })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User Deleted")
+    return res.status(200) 
+});
 module.exports = router;
