@@ -7,8 +7,10 @@ const mongoose = require('mongoose');
 
 const User = require('../models/users')
 const usersSchema = require('../models/users')
+const controller = require('../controllers/user.js')
+const userRoutes = require('../controllers/user');
 
-// GET/user/create 
+// GET/user/ 
 router.post('/', async(req, res, next) => {
     console.log("User post")
     return res.status(200).send("Mensaje con exito")
@@ -66,4 +68,12 @@ router.delete('/delete/:id', async(req, res) => {
     console.log("User Deleted")
     return res.status(200) 
 });
+
+// router.post('/', userRoutes);
+// router.post('/user/create', userRoutes.postUser);
+// router.get('/user/search', userRoutes.getUser);
+// router.get('/user/search/:id', userRoutes.searchUserById);
+// router.update('/user/update/:id', userRoutes.updateUserById);
+// router.delete('/user/delete/:id', userRoutes.deleteUserById);
+
 module.exports = router;

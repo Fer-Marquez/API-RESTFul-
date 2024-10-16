@@ -23,8 +23,10 @@ const app = express();
 app.use('/user', userRoutes);
 
 app.use('/user/create', userRoutes);
-app.use('/user/update', userRoutes);
-app.use('/user/delete', userRoutes);
+app.use('/user/search', userRoutes);
+app.use('/user/search/:id', userRoutes);
+app.use('/user/update/:id', userRoutes);
+app.use('/user/delete/:id', userRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
