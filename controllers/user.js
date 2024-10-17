@@ -1,12 +1,11 @@
+const userController = {};
 const fs = require('fs');
 const path = require('path');
-
 const { validationResult } = require('express-validator');
+//const User = require('../models/users');
 
-const User = require('../models/users');
 
-
-exports.postUser = async(req, res) => { 
+userController.postUser = async(req, res) => { 
     const user = usersSchema(req.body);
     user.save()
     .then((data) => res.json(data))
@@ -15,15 +14,43 @@ exports.postUser = async(req, res) => {
     return res.status(201)     
 
 }           
-exports.getUser = (req, res, next) => {
+userController.getUser = async(req, res) => { 
+    usersSchema
+    .find()
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("Users found")
+    return res.status(200) 
 
 }
-exports.searchUserById = (req, res, next) => {
+
+userController.searchUserById = async(req, res) => { 
+    const { id } = req.params;
+    usersSchema
+    .findById(id)
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User found")
+    return res.status(200) 
 
 }
-exports.updateUserById = (req, res, next) => {
-
+userController.updateUserById = async(req, res) => { 
+    const { id } = req.params;
+    const { username, password, first_name, last_name } = req.body;
+    usersSchema
+    .updateOne({ _id: id }, { $set: {username, password, first_name, last_name} })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User Updated")
+    return res.status(200) 
 }
-exports.deleteUserById = (req, res, next) => {
-
+userController.deleteUserById = async(req, res) => { 
+    const { id } = req.params;
+    usersSchema
+    .deleteOne({ _id: id })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User Deleted")
+    return res.status(200) 
 }
+module.exports= userController
