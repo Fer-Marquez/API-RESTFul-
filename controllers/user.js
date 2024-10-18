@@ -1,20 +1,21 @@
-const userController = {};
-const fs = require('fs');
-const path = require('path');
-const { validationResult } = require('express-validator');
-//const User = require('../models/users');
+const usersSchema = require('../models/users')
 
-
-userController.postUser = async(req, res) => { 
+exports.postUser = async(req, res, next) => {
+    console.log("User post")
+    return res.status(200).send("Mensaje con exito")
+}
+// crear usuario
+exports.postUser = async(req, res) => {
     const user = usersSchema(req.body);
     user.save()
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
     console.log("User created")
     return res.status(201)     
-
-}           
-userController.getUser = async(req, res) => { 
+    
+}
+//buscar todos los usuarios
+exports.getUser = async(req, res) => { 
     usersSchema
     .find()
     .then((data) => res.json(data))
@@ -23,8 +24,8 @@ userController.getUser = async(req, res) => {
     return res.status(200) 
 
 }
-
-userController.searchUserById = async(req, res) => { 
+//buscar a un usuario por id
+exports.searchUserById = async(req, res) => { 
     const { id } = req.params;
     usersSchema
     .findById(id)
@@ -34,7 +35,8 @@ userController.searchUserById = async(req, res) => {
     return res.status(200) 
 
 }
-userController.updateUserById = async(req, res) => { 
+//actualizar un usuario
+exports.updateUserById = async(req, res) => { 
     const { id } = req.params;
     const { username, password, first_name, last_name } = req.body;
     usersSchema
@@ -44,7 +46,8 @@ userController.updateUserById = async(req, res) => {
     console.log("User Updated")
     return res.status(200) 
 }
-userController.deleteUserById = async(req, res) => { 
+//borrar un usuario
+exports.deleteUserById = async(req, res) => { 
     const { id } = req.params;
     usersSchema
     .deleteOne({ _id: id })
@@ -53,4 +56,3 @@ userController.deleteUserById = async(req, res) => {
     console.log("User Deleted")
     return res.status(200) 
 }
-module.exports= userController

@@ -15,6 +15,7 @@ const app = express();
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
   });
+  
 // routes
   app.get('/', (req, res) => {
     res.send('Bienvenido a mi API')
@@ -22,14 +23,8 @@ const app = express();
 
 //middleware
 app.use('/user', userRoutes);
-app.use('/user', userController);
 
 
-app.use('/user/create', userRoutes);
-app.use('/user/search', userRoutes);
-app.use('/user/search/:id', userRoutes);
-app.use('/user/update/:id', userRoutes);
-app.use('/user/delete/:id', userRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
