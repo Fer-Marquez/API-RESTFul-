@@ -3,7 +3,9 @@ const fs = require("fs");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/auth');
 const userController = require('./controllers/user');
+const authController = require('./controllers/auth');
 const app = express();
 
 
@@ -23,6 +25,7 @@ const app = express();
 
 //middleware
 app.use('/user', userRoutes);
+app.use('/user', authRoutes);
 
 
 
