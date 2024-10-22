@@ -17,7 +17,8 @@ router.put('/signup', [
           }
         });
       })
-      .normalizeEmail(),
+
+    .normalizeEmail(),
     body('password')
       .trim()
       .isLength({ min: 5 }),
