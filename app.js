@@ -26,7 +26,7 @@ const app = express();
 
 //middleware
 app.use('/user', userRoutes);
-app.use('/user', authRoutes);
+app.use('/auth', authRoutes);
 
 
 

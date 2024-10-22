@@ -9,11 +9,11 @@ const router = express.Router();
 router.put('/signup', [
     body('email')
       .isEmail()
-      .withMessage('Please enter a valid username.')
+      .withMessage('Please enter a valid email.')
       .custom((value, { req }) => {
         return User.findOne({ email: value }).then(userDoc => {
           if (userDoc) {
-            return Promise.reject('Username is already exists!');
+            return Promise.reject('Email is already exists!');
           }
         });
       })
