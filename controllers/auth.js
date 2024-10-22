@@ -1,20 +1,21 @@
-// const { validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 
-// const User = require('../models/users');
+const User = require('../models/users');
 
-// exports.signup = (req, res, next) => {
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     const error = new Error('Validation failed.');
-//     error.statusCode = 422;
-//     error.data = errors.array();
-//     throw error;
-//   }
-//   const email = req.body.email;
-//   const last_name = req.body.last_name;
-//   const password = req.body.password;
+
+exports.signup = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed.');
+    error.statusCode = 422;
+    error.data = errors.array();
+    throw error;
+  }
+  const email = req.body.email;
+  const last_name = req.body.last_name;
+  const password = req.body.password;
 //   bcrypt
 //     .hash(password, 12)
 //     .then(hashedPw => {
@@ -73,4 +74,4 @@
 //       }
 //       next(err);
 //     });
-// };
+};
