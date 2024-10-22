@@ -6,6 +6,7 @@ const userRoutes = require('./routes/user');
 const authRoutes = require('./routes/auth');
 const userController = require('./controllers/user');
 const authController = require('./controllers/auth');
+
 const app = express();
 
 
