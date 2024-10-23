@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator');
+const {check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 
@@ -14,14 +14,14 @@ exports.signup = (req, res, next) => {
     throw error;
   }
   const email = req.body.email;
-  const last_name = req.body.last_name;
+  const username = req.body.username;
   const password = req.body.password;
   bcrypt
     .hash(password, 12)
     .then(hashedPw => {
       const user = new User({
         email: email,
-        last_name: last_name,
+        username: username,
         password: hashedPw
       });
       return user.save();
@@ -35,6 +35,8 @@ exports.signup = (req, res, next) => {
       }
       next(err);
     });
+    console.log("User created")
+    return res.status(201)    
 };
 
 // exports.login = (req, res, next) => {
