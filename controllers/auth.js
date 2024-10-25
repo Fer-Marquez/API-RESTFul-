@@ -35,7 +35,7 @@ exports.signup = (req, res, next) => {
       }
       next(err);
     });
-    console.log("User created")
+    console.log("Successful validation")
     return res.status(201)    
 };
 
@@ -74,7 +74,7 @@ exports.login = (req, res, next) => {
         err.statusCode = 500;
       }
       next(err);
-    });
+    })
     console.log("Token ready")
     return res.status(201)    
 };
