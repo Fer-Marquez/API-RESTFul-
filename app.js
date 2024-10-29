@@ -9,7 +9,7 @@ const authController = require('./controllers/auth');
 
 const app = express();
 
-
+//middleware para solicitudes formato JSON
   app.use(bodyParser.json());
   
   app.use((req, res, next) => {
