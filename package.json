@@ -6,7 +6,8 @@
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.3",
-    "mongoose-paginate": "^5.0.3"
+    "mongoose-paginate": "^5.0.3",
+    "mongoose-paginate-v2": "^1.8.5"
   },
   "name": "web-server",
   "version": "1.0.0",

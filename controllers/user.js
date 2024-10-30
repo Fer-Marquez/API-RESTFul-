@@ -1,9 +1,7 @@
-
-
 const usersSchema = require('../models/users')
 const options = {
     page: 1,
-    limite: 10
+    limit: 3 
 };
 
 exports.postUser = async(req, res, next) => {
@@ -23,10 +21,9 @@ exports.postUser = async(req, res) => {
 //buscar todos los usuarios
 exports.allUser = async(req, res) => { 
     usersSchema
-    // .find ()
     .paginate({}, options, (err, docs) =>{
         res.send({
-            docs
+            count: docs
         })
     })
     .then((data) => res.json(data))
