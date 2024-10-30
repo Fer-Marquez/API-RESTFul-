@@ -1,6 +1,10 @@
 
 
 const usersSchema = require('../models/users')
+const options = {
+    page: 1,
+    limite: 10
+};
 
 exports.postUser = async(req, res, next) => {
     console.log("User post")
@@ -17,17 +21,22 @@ exports.postUser = async(req, res) => {
     
 }
 //buscar todos los usuarios
-exports.getUser = async(req, res) => { 
+exports.allUser = async(req, res) => { 
     usersSchema
-    .find()
+    // .find ()
+    .paginate({}, options, (err, docs) =>{
+        res.send({
+            docs
+        })
+    })
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
     console.log("Users found")
     return res.status(200) 
 
 }
-//buscar a un usuario por id
-exports.searchUserById = async(req, res) => { 
+//buscar a un usuario por id 
+exports.getUserById = async(req, res) => { 
     const { id } = req.params;
     usersSchema
     .findById(id)
