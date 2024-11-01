@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const mongoosePaginate= require ('mongoose-paginate-v2');
+const mongoosePaginate = require ('mongoose-paginate-v2');
+// const bcryptjs = requqire('bcryptjs');
 
 const usersSchema = new Schema({
     email: {
@@ -29,13 +30,15 @@ last_name: {
     type: String,
     required: false
   },
+  active:{
+    type: Boolean,
+    default: false
+  },
   update_at: {
     type: String,
     required: false}
   }, {
     timestamps: true
-
-    //active
 });
 usersSchema.plugin(mongoosePaginate);
 
