@@ -1,8 +1,4 @@
 const usersSchema = require('../models/users')
-const options = {
-    page: 1,
-    limit: 3 
-};
 
 exports.postUser = async(req, res, next) => {
     console.log("User post")
@@ -20,45 +16,20 @@ exports.postUser = async(req, res) => {
 }
 //buscar todos los usuarios
 exports.allUser = async(req, res) => { 
-    // usersSchema
-    // .paginate({}, options, (err, docs) =>{
-    //     res.send({
-    //         count: docs
-    //     })
-    // })
-    
-    // .then((data) => res.json(data))
-    // .catch((error) => res.json ({message: error }));
-    // console.log("Users found")
-    // return res.status(200) 
-
-    const currentPage = req.query.page || 1;
-    const perPage = 10;
-    let totalItems;
-    usersSchema.find()
-      .countDocuments()
-      .then(count => {
-        totalItems = count;
-        return usersSchema.find()
-          .skip((currentPage - 1) * perPage)
-          .limit(perPage);
-      })
-      .then(data => {
-        res
-          .status(200)
-          .json({
-            message: 'Users found',
-            data: data,
-            totalItems: totalItems
-          });
-      })
-      .catch(err => {
-        if (!err.statusCode) {
-          err.statusCode = 500;
-        }
-        next(err);
-      });
-//   };
+  const options = {
+        page: 1,
+        limit: 3 
+    };
+    usersSchema
+    .paginate({}, options, (err, data) =>{
+        res.send({
+            count: data
+        })
+    })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("Users found")
+    return res.status(200) 
   
 }
 //buscar a un usuario por id 
@@ -92,8 +63,8 @@ exports.deleteUserById = async(req, res) => {
 //     console.log("User Deleted")
 //     return res.status(200) 
 // }
-  const { id } = req.params;
-  const { active } = req.body;
+  const { id } = req.params || 1;
+  const { active } = req.body || 1;;
   usersSchema
   .updateOne({ _id: id }, { $set: { active } })
   .then((data) => res.json(data))

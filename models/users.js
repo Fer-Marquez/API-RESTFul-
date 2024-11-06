@@ -32,7 +32,8 @@ last_name: {
   },
   active:{
     type: Boolean,
-    default: false
+    // default: false,
+    required: false
   },
   update_at: {
     type: String,
