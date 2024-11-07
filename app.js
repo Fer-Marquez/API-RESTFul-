@@ -28,6 +28,10 @@ const app = express();
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 
+app.get('/all/:active&true=1', (req, res) => {
+  res.send({ Active: ` ${req.params.userId}!` })
+})
+
 
 
 app.use((error, req, res, next) => {

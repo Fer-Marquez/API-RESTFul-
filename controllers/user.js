@@ -28,7 +28,14 @@ exports.allUser = async(req, res) => {
     })
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
-    console.log("Users found")
+    console.log("Users found");
+    const active = true
+
+        if (ative && true) {
+        console.log('user enabled')
+        } else  (!active && true ) 
+        console.log('user disabled')
+
     return res.status(200) 
   
 }
@@ -54,6 +61,7 @@ exports.updateUserById = async(req, res) => {
     console.log("User Updated")
     return res.status(200) 
 }
+
 //borrar un usuario
 exports.deleteUserById = async(req, res) => { 
     // const { id } = req.params;
@@ -63,12 +71,37 @@ exports.deleteUserById = async(req, res) => {
 //     console.log("User Deleted")
 //     return res.status(200) 
 // }
-  const { id } = req.params || 1;
-  const { active } = req.body || 1;;
-  usersSchema
-  .updateOne({ _id: id }, { $set: { active } })
-  .then((data) => res.json(data))
-  .catch((error) => res.json ({message: error }));
-  console.log("User deleted")
-  return res.status(200).send("Deleted")
-}
+ 
+//   const { id } = req.params;
+//   const { active } = req.body.active && true;
+//   usersSchema
+//   .updateOne({ _id: id }, { $set: { !active } })
+//   .then((data) => res.json(data))
+//   .catch((error) => res.json ({message: error }));
+//   console.log("User deleted")
+//   return res.status(200).send("Deleted")
+// }
+let id = req.params.id;
+usersSchema.findByIdAndUpdate(id, {active: false}, {new: true}, (err, userBD) => {
+    if(err){
+        return res.status(400).json({
+           ok: false,
+           err  
+        });
+    }
+
+    if(!userBD){
+        return res.status(400).json({
+            ok: false,
+            err:{
+                message: 'Usuario no encontrado'
+            } 
+         });
+    }
+
+    res.json({
+        ok: true,
+        userBD
+    });
+});
+};
