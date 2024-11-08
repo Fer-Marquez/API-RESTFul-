@@ -1,4 +1,5 @@
 const usersSchema = require('../models/users')
+const active = 1
 
 exports.postUser = async(req, res, next) => {
     console.log("User post")
@@ -29,14 +30,14 @@ exports.allUser = async(req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
     console.log("Users found");
-    const active = true
+    const active = 1
 
-        if (ative && true) {
+        if (active >= 1) {
         console.log('user enabled')
-        } else  (!active && true ) 
+        } else if (edad <= 0) {
         console.log('user disabled')
-
-    return res.status(200) 
+        }
+            return res.status(200) 
   
 }
 //buscar a un usuario por id 
@@ -71,37 +72,18 @@ exports.deleteUserById = async(req, res) => {
 //     console.log("User Deleted")
 //     return res.status(200) 
 // }
- 
-//   const { id } = req.params;
-//   const { active } = req.body.active && true;
-//   usersSchema
-//   .updateOne({ _id: id }, { $set: { !active } })
-//   .then((data) => res.json(data))
-//   .catch((error) => res.json ({message: error }));
-//   console.log("User deleted")
-//   return res.status(200).send("Deleted")
-// }
-let id = req.params.id;
-usersSchema.findByIdAndUpdate(id, {active: false}, {new: true}, (err, userBD) => {
-    if(err){
-        return res.status(400).json({
-           ok: false,
-           err  
-        });
-    }
+    const { active } = req.body.active; 
+    const { id } = req.params;
 
-    if(!userBD){
-        return res.status(400).json({
-            ok: false,
-            err:{
-                message: 'Usuario no encontrado'
-            } 
-         });
+    if (active >= 1) {
+    console.log('user enabled')
+    } else if (active <= 0) {
+    console.log('user disabled')
     }
-
-    res.json({
-        ok: true,
-        userBD
-    });
-});
-};
+    usersSchema
+    .updateOne({ _id: id }, { $set: { active } })
+    .then((data) => res.json(data))
+    .catch((error) => res.json ({message: error }));
+    console.log("User deleted")
+    return res.status(200).send("Deleted")
+    }
