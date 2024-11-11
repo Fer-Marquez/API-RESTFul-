@@ -34,7 +34,7 @@ exports.allUser = async(req, res) => {
 
         if (active >= 1) {
         console.log('user enabled')
-        } else if (edad <= 0) {
+        } else if (active <= 0) {
         console.log('user disabled')
         }
             return res.status(200) 
@@ -48,7 +48,14 @@ exports.getUserById = async(req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
     console.log("User found")
-    return res.status(200) 
+    const active = 1
+
+        if (active >= 1) {
+        console.log('user enabled')
+        } else if (active <= 0) {
+        console.log('user disabled')
+        }
+            return res.status(200) 
 
 }
 //actualizar un usuario
