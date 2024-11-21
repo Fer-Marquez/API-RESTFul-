@@ -30,7 +30,7 @@ last_name: {
     type: String,
     required: false
   },
-  active:{
+  active: {
     type: Boolean,
     // default: false,
     required: false

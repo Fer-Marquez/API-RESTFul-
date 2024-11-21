@@ -19,7 +19,7 @@ exports.postUser = async(req, res) => {
 exports.allUser = async(req, res) => { 
   const options = {
         page: 1,
-        limit: 3 
+        limit: 23 
     };
     usersSchema
     .paginate({}, options, (err, data) =>{
@@ -29,14 +29,14 @@ exports.allUser = async(req, res) => {
     })
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
-    console.log("Users found");
-    const active = 1
+    // console.log("Users found");
+    // const active = 1
 
-        if (active >= 1) {
-        console.log('user enabled')
-        } else if (active <= 0) {
-        console.log('user disabled')
-        }
+    //     if (active >= 1) {
+    //     console.log('user enabled')
+    //     } else if (active <= 0) {
+    //     console.log('user disabled')
+    //     }
             return res.status(200) 
   
 }
@@ -47,14 +47,14 @@ exports.getUserById = async(req, res) => {
     .findById(id)
     .then((data) => res.json(data))
     .catch((error) => res.json ({message: error }));
-    console.log("User found")
-    const active = 1
+    // console.log("User found")
+    // const active = 1
 
-        if (active >= 1) {
-        console.log('user enabled')
-        } else if (active <= 0) {
-        console.log('user disabled')
-        }
+    //     if (active >= 1) {
+    //     console.log('user enabled')
+    //     } else if (active <= 0) {
+    //     console.log('user disabled')
+    //     }
             return res.status(200) 
 
 }
